@@ -89,6 +89,7 @@
 			children = (
 				6C5676032B1DE1C900C831DD /* Root */,
 				6CC835E62B1E025D00BF4C1B /* SearchGithubRepository */,
+				6CC835E82B1E02D300BF4C1B /* GithubRepository */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -109,6 +110,15 @@
 				6CC835E42B1DF83E00BF4C1B /* SearchGithubRepository.storyboard */,
 			);
 			path = SearchGithubRepository;
+			sourceTree = "<group>";
+		};
+		6CC835E82B1E02D300BF4C1B /* GithubRepository */ = {
+			isa = PBXGroup;
+			children = (
+				BF0A658C244F2A3B00280FA6 /* GithubRepositoryViewController.swift */,
+				6C9651C82B1DD480009123CF /* GithubRepository.storyboard */,
+			);
+			path = GithubRepository;
 			sourceTree = "<group>";
 		};
 		BFD945D2244DC5E80012785A = {
@@ -134,11 +144,9 @@
 		BFD945DD244DC5E80012785A /* iOSEngineerCodeCheck */ = {
 			isa = PBXGroup;
 			children = (
-				6C5676022B1DE1AB00C831DD /* Scene */,
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
-				BF0A658C244F2A3B00280FA6 /* GithubRepositoryViewController.swift */,
-				6C9651C82B1DD480009123CF /* GithubRepository.storyboard */,
+				6C5676022B1DE1AB00C831DD /* Scene */,
 				BFD945E7244DC5EB0012785A /* Assets.xcassets */,
 				BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */,
 				BFD945EC244DC5EB0012785A /* Info.plist */,
