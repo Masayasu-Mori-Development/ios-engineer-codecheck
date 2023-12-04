@@ -54,13 +54,6 @@ class SearchGithubRepositoryViewController: UITableViewController, UISearchBarDe
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Detail",
-           let dtl = segue.destination as? GithubRepositoryViewController {
-            dtl.vc1 = self
-        }
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositories.count
     }
@@ -77,6 +70,19 @@ class SearchGithubRepositoryViewController: UITableViewController, UISearchBarDe
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 画面遷移時に呼ばれる
         idx = indexPath.row
-        performSegue(withIdentifier: "Detail", sender: self)
+        transitionToGithubRepository()
+    }
+
+    // TODO: Routerに移動させる
+    /// Githubリポジトリの詳細に遷移
+    private func transitionToGithubRepository() {
+        guard let githubRepositoryVC = UIStoryboard(
+            name: "GithubRepository",
+            bundle: nil
+        ).instantiateInitialViewController() as? GithubRepositoryViewController else {
+            fatalError("Not found GithubRepositoryViewController")
+        }
+        githubRepositoryVC.vc1 = self
+        navigationController?.pushViewController(githubRepositoryVC, animated: true)
     }
 }
