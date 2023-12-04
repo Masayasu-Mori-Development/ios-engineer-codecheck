@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6C9651C92B1DD480009123CF /* GithubRepository.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C9651C82B1DD480009123CF /* GithubRepository.storyboard */; };
+		6C9651CB2B1DD4AE009123CF /* SearchGithubRepository.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C9651CA2B1DD4AE009123CF /* SearchGithubRepository.storyboard */; };
 		BF0A658D244F2A3B00280FA6 /* GithubRepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A658C244F2A3B00280FA6 /* GithubRepositoryViewController.swift */; };
 		BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945DE244DC5E80012785A /* AppDelegate.swift */; };
 		BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945E0244DC5E80012785A /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		6C9651C82B1DD480009123CF /* GithubRepository.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GithubRepository.storyboard; sourceTree = "<group>"; };
+		6C9651CA2B1DD4AE009123CF /* SearchGithubRepository.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchGithubRepository.storyboard; sourceTree = "<group>"; };
 		BF0A658C244F2A3B00280FA6 /* GithubRepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryViewController.swift; sourceTree = "<group>"; };
 		BFD945DB244DC5E80012785A /* iOSEngineerCodeCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSEngineerCodeCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFD945DE244DC5E80012785A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
 				BFD945E2244DC5E80012785A /* SearchGithubRepositoryViewController.swift */,
+				6C9651CA2B1DD4AE009123CF /* SearchGithubRepository.storyboard */,
 				BF0A658C244F2A3B00280FA6 /* GithubRepositoryViewController.swift */,
 				6C9651C82B1DD480009123CF /* GithubRepository.storyboard */,
 				BFD945E4244DC5E80012785A /* Main.storyboard */,
@@ -246,6 +249,7 @@
 				6C9651C92B1DD480009123CF /* GithubRepository.storyboard in Resources */,
 				BFD945E8244DC5EB0012785A /* Assets.xcassets in Resources */,
 				BFD945E6244DC5E80012785A /* Main.storyboard in Resources */,
+				6C9651CB2B1DD4AE009123CF /* SearchGithubRepository.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
