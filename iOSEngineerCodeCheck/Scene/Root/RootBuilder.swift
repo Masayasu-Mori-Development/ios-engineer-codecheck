@@ -12,7 +12,7 @@ protocol RootBuilderProtocol {
     func build() -> RootViewController
 }
 
-final class RootBuilder {
+final class RootBuilder: RootBuilderProtocol {
     func build() -> RootViewController {
         guard let initialRootVC = UIStoryboard(
             name: "SearchGithubRepository",
