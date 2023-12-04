@@ -7,3 +7,26 @@
 //
 
 import UIKit
+
+final class RootViewController: UIViewController {
+    private var currentViewController: UIViewController?
+    
+    convenience init(currentViewController: UIViewController) {
+        self.init()
+        self.currentViewController = currentViewController
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupInitialViewController()
+    }
+    
+    private func setupInitialViewController() {
+        guard let currentViewController else {
+            fatalError("currentViewController is Nil")
+        }
+        addChild(currentViewController)
+        view.addSubview(currentViewController.view)
+    }
+}
