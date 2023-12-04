@@ -88,14 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C5676022B1DE1AB00C831DD /* Scene */ = {
+		6C5676022B1DE1AB00C831DD /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				6C5676032B1DE1C900C831DD /* Root */,
 				6CC835E62B1E025D00BF4C1B /* SearchGithubRepository */,
 				6CC835E82B1E02D300BF4C1B /* GithubRepository */,
 			);
-			path = Scene;
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		6C5676032B1DE1C900C831DD /* Root */ = {
@@ -166,7 +166,7 @@
 			children = (
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
-				6C5676022B1DE1AB00C831DD /* Scene */,
+				6C5676022B1DE1AB00C831DD /* Scenes */,
 				6CC835EB2B1E04AF00BF4C1B /* Services */,
 				6CC835F02B1E095A00BF4C1B /* Extensions */,
 				BFD945E7244DC5EB0012785A /* Assets.xcassets */,
