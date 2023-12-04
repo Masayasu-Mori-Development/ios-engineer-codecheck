@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SearchGithubRepositoryPresenterInput {
-    func searchGithubRepositries(word: String)
+    func searchGithubRepositries(word: String?)
     func searchTextDidChange()
     func didSelectRepository(row: Int)
 }
@@ -36,10 +36,10 @@ final class SearchGithubRepositoryPresenter {
 }
 
 extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput {
-    func searchGithubRepositries(word: String) {
+    func searchGithubRepositries(word: String?) {
         Task.detached {
             do {
-                let repositories = try await self.searchGithubRepositoryService.searchGithubRepositories(word: word)
+                let repositories = try await self.searchGithubRepositoryService.searchGithubRepositories(word: word ?? "")
                 DispatchQueue.main.async {
                     self.viewController?.didSearchGithubRepositories(repositories)
                 }
