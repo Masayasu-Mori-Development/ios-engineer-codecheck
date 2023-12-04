@@ -1,5 +1,5 @@
 //
-//  ViewController2.swift
+//  GithubRepositoryViewController.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController2: UIViewController {
+class GithubRepositoryViewController: UIViewController {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
@@ -17,7 +17,7 @@ class ViewController2: UIViewController {
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var openIssuesLabel: UILabel!
 
-    var vc1: ViewController!
+    var vc1: SearchGithubRepositoryViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
