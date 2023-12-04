@@ -50,8 +50,19 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
                     self.viewController?.didSearchGithubRepositories()
                 }
             } catch {
-                // TODO: - ErrorHandling
-                return
+                guard let error = error as? SearchGithubRepositoryService.SearchGithubRepositoryError else {
+                    fatalError("error cannot cast to SearchGithubRepositoryError")
+                }
+                switch error {
+                case .wordIsEmpty:
+                    break
+                case .cannotCreateUrl:
+                    // TODO: errorHandling
+                    print("Cannot create search github repository request url")
+                case .requestFailed:
+                    // TODO: errorHandling
+                    print("Failed search github repository request")
+                }
             }
         }
     }
