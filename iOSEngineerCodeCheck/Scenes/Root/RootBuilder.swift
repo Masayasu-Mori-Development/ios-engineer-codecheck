@@ -14,15 +14,9 @@ protocol RootBuilderProtocol {
 
 final class RootBuilder: RootBuilderProtocol {
     func build() -> RootViewController {
-        guard let initialRootVC = UIStoryboard(
-            name: "SearchGithubRepository",
-            bundle: nil
-        ).instantiateInitialViewController() else {
-            fatalError("SearchGithubRepository is not found")
-        }
         return RootViewController(
             currentViewController: UINavigationController(
-                rootViewController: initialRootVC
+                rootViewController: SearchGithubRepositoryBuilder().build()
             )
         )
     }
