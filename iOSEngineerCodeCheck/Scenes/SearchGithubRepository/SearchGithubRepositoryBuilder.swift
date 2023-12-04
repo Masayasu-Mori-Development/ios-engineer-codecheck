@@ -8,24 +8,17 @@
 
 import UIKit
 
-protocol SearchGithubRepositoryBuilderProtocol {
-    typealias ViewController = SearchGithubRepositoryViewController
-    func build() -> ViewController
+protocol SearchGithubRepositoryBuilderProtocol: SceneBuilder
+where ViewController == SearchGithubRepositoryViewController {
 }
 
 final class SearchGithubRepositoryBuilder: SearchGithubRepositoryBuilderProtocol {
-    func build() -> ViewController {
-        guard let viewController = UIStoryboard(
-            name: "SearchGithubRepository",
-            bundle: nil
-        ).instantiateInitialViewController() as? ViewController else {
-            fatalError("SearchGithubRepository is not found")
-        }
-        let searchGithubRepositoryService = SearchGithubRepositoryService()
+    func build() -> SearchGithubRepositoryViewController {
+        let viewController = defaultBuild()
         let presenter = SearchGithubRepositoryPresenter(
             viewController: viewController,
             router: SearchGithubRepositoryRouter(viewController: viewController),
-            searchGithubRepositoryService: searchGithubRepositoryService
+            searchGithubRepositoryService: SearchGithubRepositoryService()
         )
         viewController.inject(presenter: presenter)
 
