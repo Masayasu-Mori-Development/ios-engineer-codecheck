@@ -17,7 +17,7 @@ class ViewController2: UIViewController {
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var openIssuesLabel: UILabel!
 
-    var vc1: ViewController!
+    var vc1: SearchGithubRepositoryViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
