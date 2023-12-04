@@ -12,9 +12,6 @@ final class SearchGithubRepositoryViewController: UITableViewController {
     private var presenter: SearchGithubRepositoryPresenterInput?
     @IBOutlet private weak var searchBar: UISearchBar!
 
-    var repositories: [[String: Any]] = []
-    var idx: Int!
-
     func inject(presenter: SearchGithubRepositoryPresenterInput) {
         self.presenter = presenter
     }
@@ -27,12 +24,14 @@ final class SearchGithubRepositoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositories.count
+        return presenter?.repositories.count ?? .zero
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        let repository = repositories[indexPath.row]
+        guard let repository = presenter?.repositories[indexPath.row] else {
+            return cell
+        }
         cell.textLabel?.text = repository["full_name"] as? String ?? ""
         cell.detailTextLabel?.text = repository["language"] as? String ?? ""
         cell.tag = indexPath.row
@@ -40,8 +39,6 @@ final class SearchGithubRepositoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 画面遷移時に呼ばれる
-        idx = indexPath.row
         presenter?.didSelectRepository(row: indexPath.row)
     }
 }
@@ -65,8 +62,7 @@ extension SearchGithubRepositoryViewController: UISearchBarDelegate {
 
 // MARK: - SearchGithubRepositoryPresenterOutput
 extension SearchGithubRepositoryViewController: SearchGithubRepositoryPresenterOutput {
-    func didSearchGithubRepositories(_ repositories: [[String: Any]]) {
-        self.repositories = repositories
+    func didSearchGithubRepositories() {
         tableView.reloadData()
     }
 }

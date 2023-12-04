@@ -9,6 +9,8 @@
 import Foundation
 
 protocol SearchGithubRepositoryPresenterInput {
+    var repositories: [[String: Any]] { get }
+
     func searchGithubRepositries(word: String?)
     func searchTextDidChange()
     func didSelectRepository(row: Int)
@@ -16,13 +18,14 @@ protocol SearchGithubRepositoryPresenterInput {
 
 @MainActor
 protocol SearchGithubRepositoryPresenterOutput: AnyObject {
-    func didSearchGithubRepositories(_ repositories: [[String: Any]])
+    func didSearchGithubRepositories()
 }
 
 final class SearchGithubRepositoryPresenter {
     private weak var viewController: SearchGithubRepositoryPresenterOutput?
     private let router: SearchGithubRepositoryRouterProtocol
     private let searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol
+    private(set) var repositories: [[String: Any]] = []
 
     init(
         viewController: SearchGithubRepositoryPresenterOutput,
@@ -39,14 +42,15 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
     func searchGithubRepositries(word: String?) {
         Task.detached {
             do {
-                let repositories = try await self.searchGithubRepositoryService.searchGithubRepositories(word: word ?? "")
+                let repositories = try await self.searchGithubRepositoryService.searchGithubRepositories(
+                    word: word ?? ""
+                )
+                self.repositories = repositories
                 DispatchQueue.main.async {
-                    self.viewController?.didSearchGithubRepositories(repositories)
+                    self.viewController?.didSearchGithubRepositories()
                 }
             } catch {
-                guard let error = error as? SearchGithubRepositoryService.SearchGithubRepositoryError else {
-                    return
-                }
+                // TODO: - ErrorHandling
                 return
             }
         }
@@ -57,6 +61,7 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
     }
 
     func didSelectRepository(row: Int) {
-        router.transitionToGithubRepository()
+        let repository = repositories[row]
+        router.transitionToGithubRepository(repository: repository)
     }
 }
