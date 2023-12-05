@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SearchGithubRepositoryPresenterInput {
-    var repositories: [[String: Any]] { get }
+    var viewState: SearchGithubRepositoryViewState? { get }
 
     func searchGithubRepositries(word: String?)
     func searchTextDidChange()
@@ -25,16 +25,20 @@ final class SearchGithubRepositoryPresenter {
     private weak var viewController: SearchGithubRepositoryPresenterOutput?
     private let router: SearchGithubRepositoryRouterProtocol
     private let searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol
-    private(set) var repositories: [[String: Any]] = []
+    private let viewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol
+    private var repositories: [[String: Any]] = []
+    private(set) var viewState: SearchGithubRepositoryViewState?
 
     init(
         viewController: SearchGithubRepositoryPresenterOutput,
         router: SearchGithubRepositoryRouterProtocol,
-        searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol
+        searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol,
+        viewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol
     ) {
         self.viewController = viewController
         self.router = router
         self.searchGithubRepositoryService = searchGithubRepositoryService
+        self.viewStateBuilder = viewStateBuilder
     }
 }
 
@@ -46,6 +50,7 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
                     word: word ?? ""
                 )
                 self.repositories = repositories
+                self.updateViewState()
                 DispatchQueue.main.async {
                     self.viewController?.didSearchGithubRepositories()
                 }
@@ -74,5 +79,11 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
     func didSelectRepository(row: Int) {
         let repository = repositories[row]
         router.transitionToGithubRepository(repository: repository)
+    }
+}
+
+private extension SearchGithubRepositoryPresenter {
+    func updateViewState() {
+        viewState = viewStateBuilder.build(repositories: repositories)
     }
 }

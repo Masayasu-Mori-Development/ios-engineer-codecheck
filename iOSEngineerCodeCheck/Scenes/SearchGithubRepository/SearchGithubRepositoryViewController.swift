@@ -24,16 +24,16 @@ final class SearchGithubRepositoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.repositories.count ?? .zero
+        return presenter?.viewState?.cells.count ?? .zero
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        guard let repository = presenter?.repositories[indexPath.row] else {
+        guard let cellViewState = presenter?.viewState?.cells[indexPath.row] else {
             return cell
         }
-        cell.textLabel?.text = repository["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = repository["language"] as? String ?? ""
+        cell.textLabel?.text = cellViewState.fullName
+        cell.detailTextLabel?.text = cellViewState.language
         cell.tag = indexPath.row
         return cell
     }

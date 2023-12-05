@@ -21,7 +21,8 @@ final class SearchGithubRepositoryBuilder: SearchGithubRepositoryBuilderProtocol
                 viewController: viewController,
                 githubRepositoryBuilder: GithubRepositoryBuilder()
             ),
-            searchGithubRepositoryService: SearchGithubRepositoryService()
+            searchGithubRepositoryService: SearchGithubRepositoryService(),
+            viewStateBuilder: SearchGithubRepositoryViewStateBuilder()
         )
         viewController.inject(presenter: presenter)
 
