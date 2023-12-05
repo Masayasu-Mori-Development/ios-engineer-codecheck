@@ -14,6 +14,10 @@ protocol SceneBuilder {
 }
 
 extension SceneBuilder {
+    func build() -> ViewController {
+        defaultBuild()
+    }
+    
     func defaultBuild() -> ViewController {
         let storyboardName = String(
             describing: ViewController.self
