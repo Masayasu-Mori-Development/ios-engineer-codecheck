@@ -43,14 +43,14 @@ extension GithubRepositoryViewController: GithubRepositoryPresenterOutput {
 
 private extension GithubRepositoryViewController {
     func setupView() {
-        guard let repository = presenter?.repository else {
+        guard let viewState = presenter?.viewState else {
             return
         }
-        fullNameLabel.text = repository["full_name"] as? String
-        languageLabel.text = "Written in \(repository["language"] as? String ?? "")"
-        starsLabel.text = "\(repository["stargazers_count"] as? Int ?? 0) stars"
-        watchersLabel.text = "\(repository["wachers_count"] as? Int ?? 0) watchers"
-        forksLabel.text = "\(repository["forks_count"] as? Int ?? 0) forks"
-        openIssuesLabel.text = "\(repository["open_issues_count"] as? Int ?? 0) open issues"
+        fullNameLabel.text = viewState.fullName
+        languageLabel.text = viewState.language
+        starsLabel.text = viewState.stars
+        watchersLabel.text = viewState.watchers
+        forksLabel.text = viewState.forks
+        openIssuesLabel.text = viewState.openIssues
     }
 }
