@@ -19,6 +19,7 @@ final class GithubRepositoryBuilder: GithubRepositoryBuilderProtocol {
         let presenter = GithubRepositoryPresenter(
             viewController: viewController,
             getGithubAvatarImageDataService: GetGithubAvatarImageDataService(),
+            viewStateBuilder: GithubRepositoryViewStateBuilder(),
             repository: repository
         )
         viewController.inject(presenter: presenter)

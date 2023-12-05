@@ -9,7 +9,7 @@
 import Foundation
 
 protocol GithubRepositoryPresenterInput {
-    var repository: [String: Any] { get }
+    var viewState: GithubRepositoryViewState { get }
 
     func viewDidLoad()
 }
@@ -22,16 +22,21 @@ protocol GithubRepositoryPresenterOutput: AnyObject {
 final class GithubRepositoryPresenter: GithubRepositoryPresenterInput {
     private weak var viewController: GithubRepositoryPresenterOutput?
     private let getGithubAvatarImageDataService: GetGithubAvatarImageDataServiceProtocol
-    private(set) var repository: [String: Any]
+    private let viewStateBuilder: GithubRepositoryViewStateBuilderProtocol
+    private let repository: [String: Any]
+    private(set) var viewState: GithubRepositoryViewState
 
     init(
         viewController: GithubRepositoryPresenterOutput,
         getGithubAvatarImageDataService: GetGithubAvatarImageDataServiceProtocol,
+        viewStateBuilder: GithubRepositoryViewStateBuilderProtocol,
         repository: [String: Any]
     ) {
         self.viewController = viewController
         self.getGithubAvatarImageDataService = getGithubAvatarImageDataService
+        self.viewStateBuilder = viewStateBuilder
         self.repository = repository
+        self.viewState = viewStateBuilder.build(repository: repository)
     }
 
     func viewDidLoad() {
