@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+protocol GithubRepositoryPresenterInput {
+    var repository: [String: Any] { get }
+}
+
+final class GithubRepositoryPresenter: GithubRepositoryPresenterInput {
+    private(set) var repository: [String: Any]
+    
+    init(repository: [String : Any]) {
+        self.repository = repository
+    }
+}
