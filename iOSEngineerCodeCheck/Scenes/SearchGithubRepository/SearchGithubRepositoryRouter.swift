@@ -14,19 +14,18 @@ protocol SearchGithubRepositoryRouterProtocol {
 
 final class SearchGithubRepositoryRouter: SearchGithubRepositoryRouterProtocol {
     private weak var viewController: SearchGithubRepositoryViewController?
+    private let githubRepositoryBuilder: any GithubRepositoryBuilderProtocol
 
-    init(viewController: SearchGithubRepositoryViewController) {
+    init(
+        viewController: SearchGithubRepositoryViewController,
+        githubRepositoryBuilder: any GithubRepositoryBuilderProtocol
+    ) {
         self.viewController = viewController
+        self.githubRepositoryBuilder = githubRepositoryBuilder
     }
 
     func transitionToGithubRepository(repository: [String: Any]) {
-        guard let githubRepositoryVC = UIStoryboard(
-            name: "GithubRepository",
-            bundle: nil
-        ).instantiateInitialViewController() as? GithubRepositoryViewController else {
-            fatalError("Not found GithubRepositoryViewController")
-        }
-        githubRepositoryVC.repository = repository
+        let githubRepositoryVC = githubRepositoryBuilder.build(repository: repository)
         viewController?.navigationController?.pushViewController(githubRepositoryVC, animated: true)
     }
 }

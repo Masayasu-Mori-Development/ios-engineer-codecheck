@@ -14,9 +14,11 @@ where ViewController == GithubRepositoryViewController {
 }
 
 final class GithubRepositoryBuilder: GithubRepositoryBuilderProtocol {
-    func build(repository: [String : Any]) -> ViewController {
+    func build(repository: [String: Any]) -> ViewController {
         let viewController = defaultBuild()
         let presenter = GithubRepositoryPresenter(
+            viewController: viewController,
+            getGithubAvatarImageDataService: GetGithubAvatarImageDataService(),
             repository: repository
         )
         viewController.inject(presenter: presenter)
@@ -24,4 +26,3 @@ final class GithubRepositoryBuilder: GithubRepositoryBuilderProtocol {
         return viewController
     }
 }
-
