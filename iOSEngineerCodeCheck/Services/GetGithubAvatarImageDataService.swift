@@ -27,7 +27,7 @@ final class GetGithubAvatarImageDataService: GetGithubAvatarImageDataServiceProt
             }.resume()
         }
     }
-    
+
     enum GetAvatarImageDataError: Error {
         case cannotConvertToURL, imageDataNotFound
     }
