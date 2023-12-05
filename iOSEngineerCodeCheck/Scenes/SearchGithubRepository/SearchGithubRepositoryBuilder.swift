@@ -17,7 +17,10 @@ final class SearchGithubRepositoryBuilder: SearchGithubRepositoryBuilderProtocol
         let viewController = defaultBuild()
         let presenter = SearchGithubRepositoryPresenter(
             viewController: viewController,
-            router: SearchGithubRepositoryRouter(viewController: viewController),
+            router: SearchGithubRepositoryRouter(
+                viewController: viewController,
+                githubRepositoryBuilder: GithubRepositoryBuilder()
+            ),
             searchGithubRepositoryService: SearchGithubRepositoryService()
         )
         viewController.inject(presenter: presenter)
