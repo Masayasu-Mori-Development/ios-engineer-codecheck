@@ -7,3 +7,24 @@
 //
 
 import Foundation
+
+struct SearchGithubRepositoryViewState {
+    let cells: [SearchGithubRepositoryTableViewCellState]
+}
+
+protocol SearchGithubRepositoryViewStateBuilderProtocol {
+    func build(repositories: [[String: Any]]) -> SearchGithubRepositoryViewState
+}
+
+final class SearchGithubRepositoryViewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol {
+    func build(repositories: [[String: Any]]) -> SearchGithubRepositoryViewState {
+        .init(
+            cells: repositories.map { repository in
+                return .init(
+                    fullName: repository["full_name"] as? String ?? "",
+                    language: repository["language"] as? String ?? ""
+                )
+            }
+        )
+    }
+}
