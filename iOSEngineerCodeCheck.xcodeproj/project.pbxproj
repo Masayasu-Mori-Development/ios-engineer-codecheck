@@ -181,6 +181,48 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		6CC836122B24133900BF4C1B /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		6CC836132B24137000BF4C1B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6CC836142B24138800BF4C1B /* API */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		6CC836142B24138800BF4C1B /* API */ = {
+			isa = PBXGroup;
+			children = (
+				6CC836152B24139500BF4C1B /* APIClient.swift */,
+				6CC836192B24166200BF4C1B /* Request */,
+				6CC836122B24133900BF4C1B /* Repositories */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		6CC836192B24166200BF4C1B /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				6CC836172B2414B300BF4C1B /* APIRequestProtocol.swift */,
+				6CC8361A2B24167900BF4C1B /* Github */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		6CC8361A2B24167900BF4C1B /* Github */ = {
+			isa = PBXGroup;
+			children = (
+				6CC8361B2B2416A800BF4C1B /* GithubAPIRequestProtocol.swift */,
+			);
+			path = Github;
+			sourceTree = "<group>";
+		};
 		BFD945D2244DC5E80012785A = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +251,7 @@
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
 				6C5676022B1DE1AB00C831DD /* Scenes */,
 				6CC835EB2B1E04AF00BF4C1B /* Services */,
+				6CC836132B24137000BF4C1B /* Data */,
 				6CC835F02B1E095A00BF4C1B /* Extensions */,
 				BFD945E7244DC5EB0012785A /* Assets.xcassets */,
 				BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */,
