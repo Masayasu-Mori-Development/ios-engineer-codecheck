@@ -12,12 +12,12 @@ import XCTest
 class SearchGithubRepositoryServiceTests: XCTestCase {
     let service = SearchGithubRepositoryService()
     
-    func test空文字で検索してエラーが返ってくるか() async {
+    func test空文字で検索して空文字エラーが返ってくるか() async {
         do {
             let _ = try await service.searchGithubRepositories(word: "")
         } catch {
             guard let searchError = error as? SearchGithubRepositoryService.SearchGithubRepositoryError else {
-                XCTExpectFailure("")
+                XCTExpectFailure("返ってくるエラーの変換に失敗")
                 return
             }
             XCTAssertEqual(searchError, .wordIsEmpty)
