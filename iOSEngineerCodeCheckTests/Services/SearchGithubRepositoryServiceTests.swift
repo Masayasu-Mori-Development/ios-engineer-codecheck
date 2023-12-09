@@ -1,5 +1,5 @@
 //
-//  SearchGithubRepositoryServiceTest.swift
+//  SearchGithubRepositoryServiceTests.swift
 //  iOSEngineerCodeCheckTests
 //
 //  Created by 森勝康 on 2023/12/09.
