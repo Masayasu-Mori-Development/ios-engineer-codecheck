@@ -20,7 +20,7 @@ struct SearchGithubRepositoryRequest: GithubAPIRequestProtocol {
             .init(key: "q", value: $0.q)
         }
     }
-    
+
     let parameters: [Parameter]
 
     // swiftlint:disable identifier_name
