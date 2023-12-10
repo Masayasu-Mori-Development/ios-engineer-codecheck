@@ -9,10 +9,14 @@
 import Foundation
 
 protocol APIRequestProtocol {
-    associatedtype QueryParameter: Encodable = Data
     associatedtype ResponseType: Decodable
 
     var baseUrl: String { get }
     var path: String { get }
-    var queryParameter: QueryParameter { get set }
+    var queryParameters: [QueryParameter] { get }
+}
+
+struct QueryParameter {
+    let key: String
+    let value: String
 }

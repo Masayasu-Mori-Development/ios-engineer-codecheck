@@ -9,15 +9,19 @@
 import Foundation
 
 struct SearchGithubRepositoryRequest: GithubAPIRequestProtocol {
-    typealias QueryParameter = Parameter
-
     typealias ResponseType = Response
 
     var path: String {
         "/search/repositories"
     }
 
-    var queryParameter: QueryParameter
+    var queryParameters: [QueryParameter] {
+        parameters.map {
+            .init(key: "q", value: $0.q)
+        }
+    }
+    
+    let parameters: [Parameter]
 
     // swiftlint:disable identifier_name
     // swiftlint:disable nesting
