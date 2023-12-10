@@ -10,6 +10,7 @@ import Foundation
 
 protocol GithubRepositoryProtocol {
     func searchGithubRepositories(word: String) async throws -> SearchGithubRepositoryRequest.Response
+    func cancelSearch()
 }
 
 final class GithubRepository: GithubRepositoryProtocol {
@@ -22,5 +23,9 @@ final class GithubRepository: GithubRepositoryProtocol {
     func searchGithubRepositories(word: String) async throws -> SearchGithubRepositoryRequest.Response {
         let request = SearchGithubRepositoryRequest(parameters: [.init(q: word)])
         return try await apiClient.request(request)
+    }
+
+    func cancelSearch() {
+        apiClient.cancel()
     }
 }
