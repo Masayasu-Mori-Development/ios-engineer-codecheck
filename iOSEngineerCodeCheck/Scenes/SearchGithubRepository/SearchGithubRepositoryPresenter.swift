@@ -44,10 +44,13 @@ final class SearchGithubRepositoryPresenter {
 
 extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput {
     func searchGithubRepositries(word: String?) {
+        guard let word else {
+            return
+        }
         Task.detached {
             do {
                 let repositories = try await self.searchGithubRepositoriesService.searchGithubRepositories(
-                    word: word ?? ""
+                    word: word
                 )
                 self.repositories = repositories
                 self.updateViewState()
@@ -55,18 +58,13 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
                     self.viewController?.didSearchGithubRepositories()
                 }
             } catch {
-                guard let error = error as? SearchGithubRepositoriesService.SearchGithubRepositoryError else {
-                    fatalError("error cannot cast to SearchGithubRepositoryError")
-                }
-                switch error {
-                case .wordIsEmpty:
-                    break
-                case .cannotCreateUrl:
-                    // TODO: errorHandling
-                    print("Cannot create search github repository request url")
-                case .requestFailed:
-                    // TODO: errorHandling
-                    print("Failed search github repository request")
+                if let error = error as? APIError {
+                    switch error {
+                    case .cannotCreateURL:
+                        print("Cannot create SearchGithubRepositories URL")
+                    case .requestFailed:
+                        print("Failed search github repositories API")
+                    }
                 }
             }
         }
