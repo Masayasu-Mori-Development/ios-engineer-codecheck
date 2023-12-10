@@ -24,30 +24,33 @@ protocol SearchGithubRepositoryPresenterOutput: AnyObject {
 final class SearchGithubRepositoryPresenter {
     private weak var viewController: SearchGithubRepositoryPresenterOutput?
     private let router: SearchGithubRepositoryRouterProtocol
-    private let searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol
+    private let searchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol
     private let viewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol
-    private var repositories: [[String: Any]] = []
+    private var repositories: [SearchGithubRepositoryDto] = []
     private(set) var viewState: SearchGithubRepositoryViewState?
 
     init(
         viewController: SearchGithubRepositoryPresenterOutput,
         router: SearchGithubRepositoryRouterProtocol,
-        searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol,
+        searchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol,
         viewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol
     ) {
         self.viewController = viewController
         self.router = router
-        self.searchGithubRepositoryService = searchGithubRepositoryService
+        self.searchGithubRepositoriesService = searchGithubRepositoriesService
         self.viewStateBuilder = viewStateBuilder
     }
 }
 
 extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput {
     func searchGithubRepositries(word: String?) {
+        guard let word else {
+            return
+        }
         Task.detached {
             do {
-                let repositories = try await self.searchGithubRepositoryService.searchGithubRepositories(
-                    word: word ?? ""
+                let repositories = try await self.searchGithubRepositoriesService.searchGithubRepositories(
+                    word: word
                 )
                 self.repositories = repositories
                 self.updateViewState()
@@ -55,25 +58,20 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
                     self.viewController?.didSearchGithubRepositories()
                 }
             } catch {
-                guard let error = error as? SearchGithubRepositoryService.SearchGithubRepositoryError else {
-                    fatalError("error cannot cast to SearchGithubRepositoryError")
-                }
-                switch error {
-                case .wordIsEmpty:
-                    break
-                case .cannotCreateUrl:
-                    // TODO: errorHandling
-                    print("Cannot create search github repository request url")
-                case .requestFailed:
-                    // TODO: errorHandling
-                    print("Failed search github repository request")
+                if let error = error as? APIError {
+                    switch error {
+                    case .cannotCreateURL:
+                        print("Cannot create SearchGithubRepositories URL")
+                    case .requestFailed:
+                        print("Failed search github repositories API")
+                    }
                 }
             }
         }
     }
 
     func searchTextDidChange() {
-        searchGithubRepositoryService.cancelSearch()
+        searchGithubRepositoriesService.cancelSearch()
     }
 
     func didSelectRepository(row: Int) {

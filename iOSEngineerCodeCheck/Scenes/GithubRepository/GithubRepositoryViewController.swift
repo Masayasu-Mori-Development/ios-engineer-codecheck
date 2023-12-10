@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GithubRepositoryViewController: UIViewController {
+class GithubRepositoryViewController: UIViewController, GithubRepositoryPresenterOutput {
     @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var fullNameLabel: UILabel!
     @IBOutlet private weak var languageLabel: UILabel!
@@ -27,17 +27,6 @@ class GithubRepositoryViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
-        presenter?.viewDidLoad()
-    }
-}
-
-// MARK: - GithubRepositoryPresenterOutput
-extension GithubRepositoryViewController: GithubRepositoryPresenterOutput {
-    func updateAvatarImageView(data: Data) {
-        guard let image = UIImage(data: data) else {
-            return
-        }
-        avatarImageView.image = image
     }
 }
 
@@ -45,6 +34,9 @@ private extension GithubRepositoryViewController {
     func setupView() {
         guard let viewState = presenter?.viewState else {
             return
+        }
+        if let ownerAvatarUrl = viewState.ownerAvatarUrl {
+            avatarImageView.loadImage(with: ownerAvatarUrl)
         }
         fullNameLabel.text = viewState.fullName
         languageLabel.text = viewState.language

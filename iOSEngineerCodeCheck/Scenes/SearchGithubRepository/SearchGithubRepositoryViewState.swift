@@ -13,16 +13,16 @@ struct SearchGithubRepositoryViewState {
 }
 
 protocol SearchGithubRepositoryViewStateBuilderProtocol {
-    func build(repositories: [[String: Any]]) -> SearchGithubRepositoryViewState
+    func build(repositories: [SearchGithubRepositoryDto]) -> SearchGithubRepositoryViewState
 }
 
 final class SearchGithubRepositoryViewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol {
-    func build(repositories: [[String: Any]]) -> SearchGithubRepositoryViewState {
+    func build(repositories: [SearchGithubRepositoryDto]) -> SearchGithubRepositoryViewState {
         .init(
             cells: repositories.map { repository in
                 return .init(
-                    fullName: repository["full_name"] as? String ?? "",
-                    language: repository["language"] as? String ?? ""
+                    fullName: repository.fullName,
+                    language: repository.language
                 )
             }
         )
