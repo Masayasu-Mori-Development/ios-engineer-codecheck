@@ -26,7 +26,7 @@ final class SearchGithubRepositoryPresenter {
     private let router: SearchGithubRepositoryRouterProtocol
     private let searchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol
     private let viewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol
-    private var repositories: [[String: Any]] = []
+    private var repositories: [SearchGithubRepositoryDto] = []
     private(set) var viewState: SearchGithubRepositoryViewState?
 
     init(

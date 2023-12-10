@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchGithubRepositoryRouterProtocol {
-    func transitionToGithubRepository(repository: [String: Any])
+    func transitionToGithubRepository(repository: SearchGithubRepositoryDto)
 }
 
 final class SearchGithubRepositoryRouter: SearchGithubRepositoryRouterProtocol {
@@ -24,7 +24,7 @@ final class SearchGithubRepositoryRouter: SearchGithubRepositoryRouterProtocol {
         self.githubRepositoryBuilder = githubRepositoryBuilder
     }
 
-    func transitionToGithubRepository(repository: [String: Any]) {
+    func transitionToGithubRepository(repository: SearchGithubRepositoryDto) {
         let githubRepositoryVC = githubRepositoryBuilder.build(repository: repository)
         viewController?.navigationController?.pushViewController(githubRepositoryVC, animated: true)
     }

@@ -9,30 +9,40 @@
 import Foundation
 
 protocol SearchGithubRepositoriesServiceProtocol {
-    func searchGithubRepositories(word: String) async throws -> [[String: Any]]
+    func searchGithubRepositories(word: String) async throws -> [SearchGithubRepositoryDto]
     func cancelSearch()
 }
 
 final class SearchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol {
+    private let githubRepository: GithubRepositoryProtocol
     private var sessionTask: URLSessionTask?
 
-    func searchGithubRepositories(word: String) async throws -> [[String: Any]] {
+    init(githubRepository: GithubRepositoryProtocol = GithubRepository()) {
+        self.githubRepository = githubRepository
+    }
+
+    func searchGithubRepositories(word: String) async throws -> [SearchGithubRepositoryDto] {
         guard word.isNotEmpty else {
             throw SearchGithubRepositoryError.wordIsEmpty
         }
         guard let url = createUrl(word: word) else {
             throw SearchGithubRepositoryError.cannotCreateUrl
         }
-        return try await withCheckedThrowingContinuation { [weak self] continuation in
-            self?.sessionTask = URLSession.shared.dataTask(with: url) { (data, _, _) in
-                if let obj = try? JSONSerialization.jsonObject(with: data!) as? [String: Any],
-                   let items = obj["items"] as? [[String: Any]] {
-                    continuation.resume(returning: items)
-                } else {
-                    continuation.resume(throwing: SearchGithubRepositoryError.requestFailed)
-                }
+        do {
+            let response = try await githubRepository.searchGithubRepositories(word: word)
+            return response.items.map { item in
+                return .init(
+                    fullName: item.fullName ?? "",
+                    language: item.language ?? "",
+                    stargazersCount: item.stargazersCount ?? .zero,
+                    wachersCount: item.wachersCount ?? .zero,
+                    forksCount: item.forksCount ?? .zero,
+                    openIssuesCount: item.openIssuesCount ?? .zero,
+                    owner: .init(avatarUrl: item.owner.avatarUrl)
+                )
             }
-            self?.sessionTask?.resume()
+        } catch {
+            throw error
         }
     }
 
