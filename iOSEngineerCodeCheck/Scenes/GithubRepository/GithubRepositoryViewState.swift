@@ -15,6 +15,7 @@ struct GithubRepositoryViewState {
     let watchers: String
     let forks: String
     let openIssues: String
+    let ownerAvatarUrl: String?
 }
 
 protocol GithubRepositoryViewStateBuilderProtocol {
@@ -29,7 +30,8 @@ final class GithubRepositoryViewStateBuilder: GithubRepositoryViewStateBuilderPr
             stars: "\(repository.stargazersCount) stars",
             watchers: "\(repository.wachersCount) watchers",
             forks: "\(repository.forksCount) forks",
-            openIssues: "\(repository.openIssuesCount) open issues"
+            openIssues: "\(repository.openIssuesCount) open issues",
+            ownerAvatarUrl: repository.owner.avatarUrl
         )
     }
 }

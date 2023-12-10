@@ -10,13 +10,10 @@ import Foundation
 
 protocol GithubRepositoryPresenterInput {
     var viewState: GithubRepositoryViewState { get }
-
-    func viewDidLoad()
 }
 
 @MainActor
 protocol GithubRepositoryPresenterOutput: AnyObject {
-    func updateAvatarImageView(data: Data)
 }
 
 final class GithubRepositoryPresenter: GithubRepositoryPresenterInput {
@@ -37,35 +34,5 @@ final class GithubRepositoryPresenter: GithubRepositoryPresenterInput {
         self.viewStateBuilder = viewStateBuilder
         self.repository = repository
         self.viewState = viewStateBuilder.build(repository: repository)
-    }
-
-    func viewDidLoad() {
-        fetchAvatarImage()
-    }
-
-    private func fetchAvatarImage() {
-        guard let urlString = repository.owner.avatarUrl else {
-            return
-        }
-        Task.detached {
-            do {
-                let imageData = try await self.getGithubAvatarImageDataService.getAvatar(urlString: urlString)
-                DispatchQueue.main.async {
-                    self.viewController?.updateAvatarImageView(data: imageData)
-                }
-            } catch {
-                guard let error = error as? GetGithubAvatarImageDataService.GetAvatarImageDataError else {
-                    fatalError("error cannot cast to GetAvatarImageDataError")
-                }
-                switch error {
-                case .cannotConvertToURL:
-                    // TODO: Error handling
-                    print("Cannot convert avatar url to URL")
-                case .imageDataNotFound:
-                    // TODO: Error handling
-                    print("Failed get image data")
-                }
-            }
-        }
     }
 }
