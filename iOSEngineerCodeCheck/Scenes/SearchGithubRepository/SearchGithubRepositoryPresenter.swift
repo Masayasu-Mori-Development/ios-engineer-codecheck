@@ -24,7 +24,7 @@ protocol SearchGithubRepositoryPresenterOutput: AnyObject {
 final class SearchGithubRepositoryPresenter {
     private weak var viewController: SearchGithubRepositoryPresenterOutput?
     private let router: SearchGithubRepositoryRouterProtocol
-    private let searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol
+    private let searchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol
     private let viewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol
     private var repositories: [[String: Any]] = []
     private(set) var viewState: SearchGithubRepositoryViewState?
@@ -32,12 +32,12 @@ final class SearchGithubRepositoryPresenter {
     init(
         viewController: SearchGithubRepositoryPresenterOutput,
         router: SearchGithubRepositoryRouterProtocol,
-        searchGithubRepositoryService: SearchGithubRepositoryServiceProtocol,
+        searchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol,
         viewStateBuilder: SearchGithubRepositoryViewStateBuilderProtocol
     ) {
         self.viewController = viewController
         self.router = router
-        self.searchGithubRepositoryService = searchGithubRepositoryService
+        self.searchGithubRepositoriesService = searchGithubRepositoriesService
         self.viewStateBuilder = viewStateBuilder
     }
 }
@@ -46,7 +46,7 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
     func searchGithubRepositries(word: String?) {
         Task.detached {
             do {
-                let repositories = try await self.searchGithubRepositoryService.searchGithubRepositories(
+                let repositories = try await self.searchGithubRepositoriesService.searchGithubRepositories(
                     word: word ?? ""
                 )
                 self.repositories = repositories
@@ -55,7 +55,7 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
                     self.viewController?.didSearchGithubRepositories()
                 }
             } catch {
-                guard let error = error as? SearchGithubRepositoryService.SearchGithubRepositoryError else {
+                guard let error = error as? SearchGithubRepositoriesService.SearchGithubRepositoryError else {
                     fatalError("error cannot cast to SearchGithubRepositoryError")
                 }
                 switch error {
@@ -73,7 +73,7 @@ extension SearchGithubRepositoryPresenter: SearchGithubRepositoryPresenterInput 
     }
 
     func searchTextDidChange() {
-        searchGithubRepositoryService.cancelSearch()
+        searchGithubRepositoriesService.cancelSearch()
     }
 
     func didSelectRepository(row: Int) {

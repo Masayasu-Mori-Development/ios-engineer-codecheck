@@ -1,5 +1,5 @@
 //
-//  SearchGithubRepositoryService.swift
+//  SearchGithubRepositoriesService.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 森勝康 on 2023/12/04.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol SearchGithubRepositoryServiceProtocol {
+protocol SearchGithubRepositoriesServiceProtocol {
     func searchGithubRepositories(word: String) async throws -> [[String: Any]]
     func cancelSearch()
 }
 
-final class SearchGithubRepositoryService: SearchGithubRepositoryServiceProtocol {
+final class SearchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol {
     private var sessionTask: URLSessionTask?
 
     func searchGithubRepositories(word: String) async throws -> [[String: Any]] {
