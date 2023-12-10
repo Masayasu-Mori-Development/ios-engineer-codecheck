@@ -24,7 +24,7 @@ final class GithubRepository: GithubRepositoryProtocol {
         let request = SearchGithubRepositoryRequest(parameters: [.init(q: word)])
         return try await apiClient.request(request)
     }
-    
+
     func cancelSearch() {
         apiClient.cancel()
     }
