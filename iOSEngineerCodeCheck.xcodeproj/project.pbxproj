@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6C3C4BCC2B2573D2002C7432 /* SearchGithubRepositoryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3C4BCB2B2573D2002C7432 /* SearchGithubRepositoryDto.swift */; };
+		6C3C4BCF2B2579D0002C7432 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6C3C4BCE2B2579D0002C7432 /* Kingfisher */; };
 		6C5676052B1DE1D800C831DD /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5676042B1DE1D800C831DD /* RootViewController.swift */; };
 		6C5676072B1DE23400C831DD /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5676062B1DE23400C831DD /* RootBuilder.swift */; };
 		6C9651C92B1DD480009123CF /* GithubRepository.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C9651C82B1DD480009123CF /* GithubRepository.storyboard */; };
@@ -104,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C3C4BCF2B2579D0002C7432 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +323,9 @@
 				6C9651C32B1CB45E009123CF /* PBXTargetDependency */,
 			);
 			name = iOSEngineerCodeCheck;
+			packageProductDependencies = (
+				6C3C4BCE2B2579D0002C7432 /* Kingfisher */,
+			);
 			productName = iOSEngineerCodeCheck;
 			productReference = BFD945DB244DC5E80012785A /* iOSEngineerCodeCheck.app */;
 			productType = "com.apple.product-type.application";
@@ -395,6 +400,7 @@
 			mainGroup = BFD945D2244DC5E80012785A;
 			packageReferences = (
 				6C9651C12B1CB452009123CF /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				6C3C4BCD2B2579D0002C7432 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = BFD945DC244DC5E80012785A /* Products */;
 			projectDirPath = "";
@@ -792,6 +798,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6C3C4BCD2B2579D0002C7432 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.1;
+			};
+		};
 		6C9651C12B1CB452009123CF /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint.git";
@@ -803,6 +817,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6C3C4BCE2B2579D0002C7432 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C3C4BCD2B2579D0002C7432 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		6C9651C22B1CB45E009123CF /* SwiftLintPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6C9651C12B1CB452009123CF /* XCRemoteSwiftPackageReference "SwiftLint" */;
