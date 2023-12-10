@@ -23,14 +23,14 @@ final class GithubRepositoryPresenter: GithubRepositoryPresenterInput {
     private weak var viewController: GithubRepositoryPresenterOutput?
     private let getGithubAvatarImageDataService: GetGithubAvatarImageDataServiceProtocol
     private let viewStateBuilder: GithubRepositoryViewStateBuilderProtocol
-    private let repository: [String: Any]
+    private let repository: SearchGithubRepositoryDto
     private(set) var viewState: GithubRepositoryViewState
 
     init(
         viewController: GithubRepositoryPresenterOutput,
         getGithubAvatarImageDataService: GetGithubAvatarImageDataServiceProtocol,
         viewStateBuilder: GithubRepositoryViewStateBuilderProtocol,
-        repository: [String: Any]
+        repository: SearchGithubRepositoryDto
     ) {
         self.viewController = viewController
         self.getGithubAvatarImageDataService = getGithubAvatarImageDataService
@@ -44,8 +44,7 @@ final class GithubRepositoryPresenter: GithubRepositoryPresenterInput {
     }
 
     private func fetchAvatarImage() {
-        guard let owner = repository["owner"] as? [String: Any],
-              let urlString = owner["avatar_url"] as? String else {
+        guard let urlString = repository.owner.avatarUrl else {
             return
         }
         Task.detached {

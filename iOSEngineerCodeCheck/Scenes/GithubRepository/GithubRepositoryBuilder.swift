@@ -10,11 +10,11 @@ import Foundation
 
 protocol GithubRepositoryBuilderProtocol: SceneBuilder
 where ViewController == GithubRepositoryViewController {
-    func build(repository: [String: Any]) -> ViewController
+    func build(repository: SearchGithubRepositoryDto) -> ViewController
 }
 
 final class GithubRepositoryBuilder: GithubRepositoryBuilderProtocol {
-    func build(repository: [String: Any]) -> ViewController {
+    func build(repository: SearchGithubRepositoryDto) -> ViewController {
         let viewController = defaultBuild()
         let presenter = GithubRepositoryPresenter(
             viewController: viewController,
