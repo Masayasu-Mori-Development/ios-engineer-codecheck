@@ -15,7 +15,6 @@ protocol SearchGithubRepositoriesServiceProtocol {
 
 final class SearchGithubRepositoriesService: SearchGithubRepositoriesServiceProtocol {
     private let githubRepository: GithubRepositoryProtocol
-    private var sessionTask: URLSessionTask?
 
     init(githubRepository: GithubRepositoryProtocol = GithubRepository()) {
         self.githubRepository = githubRepository
@@ -25,9 +24,7 @@ final class SearchGithubRepositoriesService: SearchGithubRepositoriesServiceProt
         guard word.isNotEmpty else {
             throw SearchGithubRepositoryError.wordIsEmpty
         }
-        guard let url = createUrl(word: word) else {
-            throw SearchGithubRepositoryError.cannotCreateUrl
-        }
+
         do {
             let response = try await githubRepository.searchGithubRepositories(word: word)
             return response.items.map { item in
@@ -47,23 +44,10 @@ final class SearchGithubRepositoriesService: SearchGithubRepositoriesServiceProt
     }
 
     func cancelSearch() {
-        sessionTask?.cancel()
-    }
-
-    private func createUrl(word: String) -> URL? {
-        let urlString = "https://api.github.com/search/repositories"
-        let wordQueryName = "q"
-        guard let url = URL(string: urlString) else {
-            return nil
-        }
-        var urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: url.baseURL != nil)
-        urlComponent?.queryItems = [
-            .init(name: wordQueryName, value: word)
-        ]
-        return urlComponent?.url
+        githubRepository.cancelSearch()
     }
 
     enum SearchGithubRepositoryError: Error {
-        case wordIsEmpty, cannotCreateUrl, requestFailed
+        case wordIsEmpty
     }
 }
